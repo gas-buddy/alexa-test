@@ -13,7 +13,7 @@ Sample Usage
 
 ```
 import tap from 'tap';
-import alexaTest from '@gasbuddy/alexa-test';
+import alexa from '@gasbuddy/alexa-test';
 
 tap.test('test HelloIntent', async (t) => {
   // You would start your app here, however you do that
