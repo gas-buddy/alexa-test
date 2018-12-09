@@ -1,0 +1,65 @@
+{
+  "name": "@gasbuddy/alexa-test",
+  "version": "1.0.0",
+  "description": "Infrastructure for generating test requests for Alexa",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "tap --node-arg=-r --node-arg=@babel/register test/*.js",
+    "cover": "cross-env BABEL_ENV=test nyc tap test/test_*.js && nyc check-coverage && nyc report --reporter=text",
+    "ci-test": "cross-env NODE_ENV=test nyc tap -Rtap test/test_*.js | tee .tap_output | tap -Rspec -",
+    "ci-cover": "nyc check-coverage",
+    "ci-coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint .",
+    "build": "babel src --out-dir build --source-maps",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "gasbuddy",
+    "alexa",
+    "interaction_models",
+    "voice",
+    "testing"
+  ],
+  "author": "GasBuddy",
+  "license": "MIT",
+  "engines": {
+    "node": "^8"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/register": "^7.0.0",
+    "ask-sdk-core": "^2.3.0",
+    "ask-sdk-model": "^1.9.0",
+    "babel-preset-gasbuddy": "^4",
+    "body-parser": "^1.18.3",
+    "cross-env": "^5.1.4",
+    "eslint-config-gasbuddy": "^5",
+    "express": "^4.16.4",
+    "nyc": "^13.1.0",
+    "tap": "^12.1.0"
+  },
+  "dependencies": {
+    "immutable": "^4.0.0-rc.12",
+    "lodash": "^4.17.11",
+    "supertest": "^3.3.0",
+    "uuid": "^3.3.2"
+  },
+  "nyc": {
+    "lines": 75,
+    "statements": 75,
+    "functions": 75,
+    "branches": 45,
+    "include": [
+      "src"
+    ],
+    "require": [
+      "@babel/register"
+    ],
+    "sourceMap": false,
+    "instrument": false,
+    "reporter": [
+      "text",
+      "lcov"
+    ]
+  }
+}
